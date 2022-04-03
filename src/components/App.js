@@ -21,8 +21,8 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/services" element={<Services />} />
-          <Route path="/custom-software" element={<customSoftware />} />
-          <Route path="/mobile-app" element={<mobileApp />} />
+          <Route path="/custom-software" element={<CustomSoftware />} />
+          <Route path="/mobile-apps" element={<MobileApp />} />
           <Route path="/websites" element={<Websites />} />
           <Route path="/revolution" element={<Revolution />} />
           <Route path="/about" element={<About />} />
