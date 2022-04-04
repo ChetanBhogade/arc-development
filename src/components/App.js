@@ -1,4 +1,4 @@
-import { createTheme, ThemeProvider, styled } from "@mui/material/styles";
+import { ThemeProvider } from "@mui/material/styles";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Header from "./ui/Header";
 import theme from "./ui/Theme";
