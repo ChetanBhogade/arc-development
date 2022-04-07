@@ -6,6 +6,8 @@ import ButtonArrow from "./ui/ButtonArrow";
 
 import animationData from "../animations/landinganimation/data";
 import customSoftwareData from "../assets/Custom Software Icon.svg";
+import mobileAppsIcon from "../assets/mobileIcon.svg";
+import websitesIcon from "../assets/websiteIcon.svg";
 
 const StyledAnimation = styled(Grid)(({ theme }) => ({
   maxWidth: "50em",
@@ -66,7 +68,7 @@ const LearnButton = styled(Button)(({ theme }) => ({
   fontSize: "0.7rem",
   height: 35,
   padding: 5,
-  [theme.breakpoints.down("sm")]: {
+  [theme.breakpoints.down("md")]: {
     marginBottom: "2em",
   },
 }));
@@ -140,7 +142,7 @@ function LandingPage() {
         </Grid>
       </Grid>
       <Grid item>
-        {/* -----Services Block----- */}
+        {/* -----Custom Software Block----- */}
         <ServiceContainer
           justifyContent={matchesMD ? "center" : undefined}
           container
@@ -172,6 +174,81 @@ function LandingPage() {
           </Grid>
           <Grid item>
             <IconImg alt="Custom software icon" src={customSoftwareData} />
+          </Grid>
+        </ServiceContainer>
+      </Grid>
+      <Grid item>
+        {/* -----iOS/Android Block----- */}
+        <ServiceContainer
+          justifyContent={matchesMD ? "center" : "flex-end"}
+          container
+          direction="row"
+        >
+          <Grid
+            item
+            style={{
+              textAlign: matchesMD ? "center" : undefined,
+            }}
+          >
+            <Typography variant="h4">iOS/Android App Development</Typography>
+            <StyledSubtitle variant="subtitle1">
+              Extend Functionality. Extend Access. Increase Engagement.
+            </StyledSubtitle>
+            <Typography variant="subtitle1">
+              Integrate your web experience or create a standalone app
+              {matchesMD ? null : <br />} with either mobile platform
+            </Typography>
+            <LearnButton variant="outlined">
+              <span style={{ marginRight: 10 }}>Learn More</span>
+              <ButtonArrow
+                width={10}
+                height={10}
+                fill={theme.palette.common.arcBlue}
+              />
+            </LearnButton>
+          </Grid>
+          <Grid
+            item
+            style={{
+              marginRight: matchesMD ? 0 : "5em",
+            }}
+          >
+            <IconImg alt="Mobile phone icon" src={mobileAppsIcon} />
+          </Grid>
+        </ServiceContainer>
+      </Grid>
+      <Grid item>
+        {/* -----Website Block----- */}
+        <ServiceContainer
+          justifyContent={matchesMD ? "center" : undefined}
+          container
+          direction="row"
+        >
+          <Grid
+            item
+            style={{
+              marginLeft: matchesMD ? 0 : "5em",
+              textAlign: matchesMD ? "center" : undefined,
+            }}
+          >
+            <Typography variant="h4">Website Development</Typography>
+            <StyledSubtitle variant="subtitle1">
+              Reach More. Discover More. Sell More.
+            </StyledSubtitle>
+            <Typography variant="subtitle1">
+              Optimized for Search Engines, built for speed.
+            </Typography>
+            <LearnButton variant="outlined">
+              <span style={{ marginRight: 10 }}>Learn More</span>
+              <ButtonArrow
+                width={10}
+                height={10}
+                fill={theme.palette.common.arcBlue}
+              />
+            </LearnButton>
+          </Grid>
+          <Grid item>
+            <IconImg alt="Website icon" src={websitesIcon} />
           </Grid>
         </ServiceContainer>
       </Grid>
