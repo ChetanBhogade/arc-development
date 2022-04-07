@@ -1,6 +1,7 @@
 import { ThemeProvider } from "@mui/material/styles";
 import { useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import LandingPage from "./LandingPage";
 import Footer from "./ui/Footer";
 import Header from "./ui/Header";
 import theme from "./ui/Theme";
@@ -29,7 +30,7 @@ function App() {
           setSelectedIndex={setSelectedIndex}
         />
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<LandingPage />} />
           <Route path="/services" element={<Services />} />
           <Route path="/custom-software" element={<CustomSoftware />} />
           <Route path="/mobile-apps" element={<MobileApp />} />

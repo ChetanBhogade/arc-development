@@ -113,7 +113,7 @@ function Footer(props) {
               }}
               item
             >
-              Mobile App Development
+              iOS/Android App Development
             </StyledGridLink>
             <StyledGridLink
               component={Link}

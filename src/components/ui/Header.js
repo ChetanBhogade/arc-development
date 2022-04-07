@@ -60,6 +60,9 @@ const MyButton = styled(Button)(({ theme }) => ({
   marginLeft: "50px",
   marginRight: "25px",
   height: "45px",
+  "&:hover": {
+    backgroundColor: theme.palette.secondary.light,
+  },
 }));
 const LogoContainer = styled(Button)(({ theme }) => ({
   padding: 0,
@@ -176,7 +179,7 @@ function Header(props) {
       selectedIndex: 1,
     },
     {
-      name: "Mobile App Development",
+      name: "iOS/Android App Development",
       link: "/mobile-apps",
       activeIndex: 1,
       selectedIndex: 2,
