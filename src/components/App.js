@@ -2,12 +2,11 @@ import { ThemeProvider } from "@mui/material/styles";
 import { useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import LandingPage from "./LandingPage";
+import Services from "./Services";
 import Footer from "./ui/Footer";
 import Header from "./ui/Header";
 import theme from "./ui/Theme";
 
-const Home = () => <div style={{ height: "2000px" }}>Home</div>;
-const Services = () => <div>services</div>;
 const CustomSoftware = () => <div>customSoftware</div>;
 const MobileApp = () => <div>mobileApp</div>;
 const Websites = () => <div>websites</div>;
@@ -39,7 +38,15 @@ function App() {
               />
             }
           />
-          <Route path="/services" element={<Services />} />
+          <Route
+            path="/services"
+            element={
+              <Services
+                setValue={setValue}
+                setSelectedIndex={setSelectedIndex}
+              />
+            }
+          />
           <Route path="/custom-software" element={<CustomSoftware />} />
           <Route path="/mobile-apps" element={<MobileApp />} />
           <Route path="/websites" element={<Websites />} />
