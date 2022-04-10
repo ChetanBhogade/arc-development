@@ -59,7 +59,7 @@ const SocialContainer = styled(Grid)(({ theme }) => ({
 }));
 
 function Footer(props) {
-  const { value, setValue, selectedIndex, setSelectedIndex } = props;
+  const { setValue, setSelectedIndex } = props;
 
   return (
     <StyledFooter>

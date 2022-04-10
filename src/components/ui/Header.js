@@ -219,6 +219,10 @@ function Header(props) {
           }
           break;
 
+        case "/estimate":
+          setValue(5);
+          break;
+
         default:
           break;
       }
@@ -245,6 +249,7 @@ function Header(props) {
         to="/estimate"
         variant="contained"
         color="secondary"
+        onClick={() => setValue(5)}
       >
         Free Estimate
       </MyButton>
