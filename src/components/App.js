@@ -4,13 +4,13 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import CustomSoftware from "./CustomSoftware";
 import LandingPage from "./LandingPage";
 import MobileApps from "./MobileApps";
+import Revolution from "./Revolution";
 import Services from "./Services";
 import Footer from "./ui/Footer";
 import Header from "./ui/Header";
 import theme from "./ui/Theme";
 import Websites from "./Websites";
 
-const Revolution = () => <div>revolution</div>;
 const About = () => <div>about</div>;
 const Contact = () => <div>contact</div>;
 const Estimate = () => <div>estimate</div>;
@@ -74,7 +74,15 @@ function App() {
               />
             }
           />
-          <Route path="/revolution" element={<Revolution />} />
+          <Route
+            path="/revolution"
+            element={
+              <Revolution
+                setValue={setValue}
+                setSelectedIndex={setSelectedIndex}
+              />
+            }
+          />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/estimate" element={<Estimate />} />
