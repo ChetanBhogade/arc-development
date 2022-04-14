@@ -23,7 +23,7 @@ export default createTheme({
       textTransform: "none",
       fontWeight: 700,
       fontSize: "1rem",
-      color: "white"
+      color: "white",
     },
     estimate: {
       fontFamily: "Pacifico",
@@ -62,7 +62,12 @@ export default createTheme({
     body1: {
       fontSize: "1.25rem",
       color: arcGray,
-      fontWeight: 300
+      fontWeight: 300,
+    },
+    caption: {
+      fontSize: "1rem",
+      fontWeight: 300,
+      color: arcGray, 
     },
     learnButton: {
       borderColor: arcBlue,

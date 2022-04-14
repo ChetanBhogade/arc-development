@@ -1,7 +1,6 @@
 import { Grid, Typography, useMediaQuery } from "@mui/material";
-import { maxWidth, styled, useTheme } from "@mui/system";
+import { styled, useTheme } from "@mui/system";
 import React from "react";
-import { Link } from "react-router-dom";
 import Lottie from "react-lottie";
 
 import vision from "../assets/vision.svg";

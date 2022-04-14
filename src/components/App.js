@@ -1,6 +1,7 @@
 import { ThemeProvider } from "@mui/material/styles";
 import { useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import About from "./About";
 import CustomSoftware from "./CustomSoftware";
 import LandingPage from "./LandingPage";
 import MobileApps from "./MobileApps";
@@ -11,7 +12,6 @@ import Header from "./ui/Header";
 import theme from "./ui/Theme";
 import Websites from "./Websites";
 
-const About = () => <div>about</div>;
 const Contact = () => <div>contact</div>;
 const Estimate = () => <div>estimate</div>;
 
@@ -83,7 +83,12 @@ function App() {
               />
             }
           />
-          <Route path="/about" element={<About />} />
+          <Route
+            path="/about"
+            element={
+              <About setValue={setValue} setSelectedIndex={setSelectedIndex} />
+            }
+          />
           <Route path="/contact" element={<Contact />} />
           <Route path="/estimate" element={<Estimate />} />
         </Routes>
