@@ -149,6 +149,7 @@ function LandingPage(props) {
       preserveAspectRatio: "xMidYMid slice",
     },
   };
+
   return (
     <MainContainer container direction="column">
       <Grid item>

@@ -1,13 +1,13 @@
 import { ThemeProvider } from "@mui/material/styles";
 import { useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import CustomSoftware from "./CustomSoftware";
 import LandingPage from "./LandingPage";
 import Services from "./Services";
 import Footer from "./ui/Footer";
 import Header from "./ui/Header";
 import theme from "./ui/Theme";
 
-const CustomSoftware = () => <div>customSoftware</div>;
 const MobileApp = () => <div>mobileApp</div>;
 const Websites = () => <div>websites</div>;
 const Revolution = () => <div>revolution</div>;
@@ -47,7 +47,15 @@ function App() {
               />
             }
           />
-          <Route path="/custom-software" element={<CustomSoftware />} />
+          <Route
+            path="/custom-software"
+            element={
+              <CustomSoftware
+                setValue={setValue}
+                setSelectedIndex={setSelectedIndex}
+              />
+            }
+          />
           <Route path="/mobile-apps" element={<MobileApp />} />
           <Route path="/websites" element={<Websites />} />
           <Route path="/revolution" element={<Revolution />} />

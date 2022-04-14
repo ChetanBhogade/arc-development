@@ -74,7 +74,6 @@ const LogoContainer = styled(Button)(({ theme }) => ({
 const MyMenu = styled(Menu)(({ theme }) => ({
   "& .MuiMenu-paper": {
     backgroundColor: theme.palette.common.arcBlue,
-    color: "white",
     borderRadius: 0,
   },
 }));
