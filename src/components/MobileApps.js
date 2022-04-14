@@ -66,7 +66,7 @@ function MobileApps(props) {
               }}
               style={{ backgroundColor: "transparent" }}
             >
-              <img src={backArrow} alt="Back to services page" />
+              <img src={backArrow} alt="Back to custom software page" />
             </IconButton>
           </ArrowContainer>
         )}
@@ -118,7 +118,7 @@ function MobileApps(props) {
             >
               <img
                 src={forwardArrow}
-                alt="Forward to iOS/Android App Development Page"
+                alt="Forward to Website Development Page"
               />
             </IconButton>
           </ArrowContainer>

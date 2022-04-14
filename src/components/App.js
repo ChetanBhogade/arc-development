@@ -8,8 +8,8 @@ import Services from "./Services";
 import Footer from "./ui/Footer";
 import Header from "./ui/Header";
 import theme from "./ui/Theme";
+import Websites from "./Websites";
 
-const Websites = () => <div>websites</div>;
 const Revolution = () => <div>revolution</div>;
 const About = () => <div>about</div>;
 const Contact = () => <div>contact</div>;
@@ -65,7 +65,15 @@ function App() {
               />
             }
           />
-          <Route path="/websites" element={<Websites />} />
+          <Route
+            path="/websites"
+            element={
+              <Websites
+                setValue={setValue}
+                setSelectedIndex={setSelectedIndex}
+              />
+            }
+          />
           <Route path="/revolution" element={<Revolution />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
