@@ -2,6 +2,7 @@ import { ThemeProvider } from "@mui/material/styles";
 import { useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import About from "./About";
+import Contact from "./Contact";
 import CustomSoftware from "./CustomSoftware";
 import LandingPage from "./LandingPage";
 import MobileApps from "./MobileApps";
@@ -12,7 +13,6 @@ import Header from "./ui/Header";
 import theme from "./ui/Theme";
 import Websites from "./Websites";
 
-const Contact = () => <div>contact</div>;
 const Estimate = () => <div>estimate</div>;
 
 function App() {
@@ -89,7 +89,15 @@ function App() {
               <About setValue={setValue} setSelectedIndex={setSelectedIndex} />
             }
           />
-          <Route path="/contact" element={<Contact />} />
+          <Route
+            path="/contact"
+            element={
+              <Contact
+                setValue={setValue}
+                setSelectedIndex={setSelectedIndex}
+              />
+            }
+          />
           <Route path="/estimate" element={<Estimate />} />
         </Routes>
         <Footer setValue={setValue} setSelectedIndex={setSelectedIndex} />
