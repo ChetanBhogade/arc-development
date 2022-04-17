@@ -1,5 +1,7 @@
 import {
   Button,
+  Dialog,
+  DialogContent,
   Grid,
   TextField,
   Typography,
@@ -70,6 +72,10 @@ const SendButton = styled(Button)(({ theme }) => ({
   "&:hover": {
     backgroundColor: theme.palette.secondary.light,
   },
+  [theme.breakpoints.down("sm")]: {
+    height: 40,
+    width: 225,
+  },
 }));
 
 function Contact(props) {
@@ -80,9 +86,48 @@ function Contact(props) {
   const matchesXS = useMediaQuery(theme.breakpoints.down("xs"));
 
   const [name, setName] = useState("");
+
   const [email, setEmail] = useState("");
+  const [emailHelper, setEmailHelper] = useState("");
+
   const [phone, setPhone] = useState("");
+  const [phoneHelper, setPhoneHelper] = useState("");
+
   const [message, setMessage] = useState("");
+
+  const [open, setOpen] = useState(false);
+
+  const onChange = (event) => {
+    let valid;
+
+    switch (event.target.id) {
+      case "email":
+        setEmail(event.target.value);
+        valid = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(
+          event.target.value
+        );
+        if (!valid) {
+          setEmailHelper("Invalid Email");
+        } else {
+          setEmailHelper("");
+        }
+        break;
+
+      case "phone":
+        setPhone(event.target.value);
+        valid = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/.test(
+          event.target.value
+        );
+        if (!valid) {
+          setPhoneHelper("Invalid Phone");
+        } else {
+          setPhoneHelper("");
+        }
+
+      default:
+        break;
+    }
+  };
 
   return (
     <Grid container direction="row">
@@ -133,7 +178,12 @@ function Contact(props) {
                     fontSize: "1rem",
                   }}
                 >
-                  (555) 555-5555
+                  <a
+                    style={{ color: "inherit", textDecoration: "none" }}
+                    href="tel:555555 5555"
+                  >
+                    (555) 555-5555
+                  </a>
                 </Typography>
               </Grid>
             </Grid>
@@ -153,7 +203,12 @@ function Contact(props) {
                     fontSize: "1rem",
                   }}
                 >
-                  chetan.bhogade3899@gmail.com
+                  <a
+                    style={{ color: "inherit", textDecoration: "none" }}
+                    href="mailto:chetan.bhogade3899@gmail.com"
+                  >
+                    chetan.bhogade3899@gmail.com
+                  </a>
                 </Typography>
               </Grid>
             </Grid>
@@ -179,12 +234,12 @@ function Contact(props) {
                 <TextField
                   variant="standard"
                   label="Email"
+                  error={emailHelper.length !== 0}
+                  helperText={emailHelper}
                   id="email"
                   fullWidth
                   value={email}
-                  onChange={(e) => {
-                    setEmail(e.target.value);
-                  }}
+                  onChange={onChange}
                 />
               </Grid>
               <Grid item style={{ marginBottom: "0.5em" }}>
@@ -192,11 +247,11 @@ function Contact(props) {
                   variant="standard"
                   label="Phone"
                   id="phone"
+                  error={phoneHelper.length !== 0}
+                  helperText={phoneHelper}
                   fullWidth
                   phone={phone}
-                  onChange={(e) => {
-                    setPhone(e.target.value);
-                  }}
+                  onChange={onChange}
                 />
               </Grid>
             </Grid>
@@ -229,7 +284,18 @@ function Contact(props) {
               justifyContent="center"
               style={{ marginTop: "2em" }}
             >
-              <SendButton variant="contained">
+              <SendButton
+                disabled={
+                  name.length === 0 ||
+                  message.length === 0 ||
+                  phoneHelper.length !== 0 ||
+                  emailHelper.length !== 0 ||
+                  phone.length === 0 ||
+                  email.length === 0
+                }
+                variant="contained"
+                onClick={() => setOpen(true)}
+              >
                 Send Message
                 <img
                   src={airplane}
@@ -241,6 +307,139 @@ function Contact(props) {
           </Grid>
         </Grid>
       </Grid>
+
+      <Dialog
+        style={{ zIndex: 1302 }}
+        open={open}
+        onClose={() => setOpen(false)}
+        fullScreen={matchesXS}
+        PaperProps={{
+          style: {
+            paddingTop: matchesXS ? "1em" : "5em",
+            paddingBottom: matchesXS ? "1em" : "5em",
+            paddingLeft: matchesXS
+              ? 0
+              : matchesSM
+              ? "5em"
+              : matchesMD
+              ? "10em"
+              : "20em",
+            paddingRight: matchesXS
+              ? 0
+              : matchesSM
+              ? "5em"
+              : matchesMD
+              ? "10em"
+              : "20em",
+          },
+        }}
+      >
+        <DialogContent>
+          <Grid item>
+            <Typography align="center" variant="h4" gutterBottom>
+              Confirm Message
+            </Typography>
+          </Grid>
+          <Grid item style={{ marginBottom: "0.5em" }}>
+            <TextField
+              variant="standard"
+              label="Name"
+              id="name"
+              fullWidth
+              value={name}
+              onChange={(e) => {
+                setName(e.target.value);
+              }}
+            />
+          </Grid>
+          <Grid item style={{ marginBottom: "0.5em" }}>
+            <TextField
+              variant="standard"
+              label="Email"
+              error={emailHelper.length !== 0}
+              helperText={emailHelper}
+              id="email"
+              fullWidth
+              value={email}
+              onChange={onChange}
+            />
+          </Grid>
+          <Grid item style={{ marginBottom: "0.5em" }}>
+            <TextField
+              variant="standard"
+              label="Phone"
+              id="phone"
+              error={phoneHelper.length !== 0}
+              helperText={phoneHelper}
+              fullWidth
+              phone={phone}
+              onChange={onChange}
+            />
+          </Grid>
+          <Grid item style={{ maxWidth: matchesXS ? "100%" : "20em" }}>
+            <StyledMessage
+              inputProps={{
+                // disableUnderline: "true",
+                underline: {
+                  "&&&:before": {
+                    borderBottom: "none",
+                  },
+                  "&&:after": {
+                    borderBottom: "none",
+                  },
+                },
+              }}
+              multiline
+              fullWidth
+              rows={10}
+              id="message"
+              value={message}
+              onChange={(e) => {
+                setMessage(e.target.value);
+              }}
+            />
+          </Grid>
+          <Grid
+            item
+            container
+            direction={matchesSM ? "column" : "row"}
+            style={{ marginTop: "2em" }}
+            alignItems="center"
+          >
+            <Grid item>
+              <Button
+                style={{ fontWight: 300 }}
+                color="primary"
+                onClick={() => setOpen(false)}
+              >
+                Cancel
+              </Button>
+            </Grid>
+            <Grid item>
+              <SendButton
+                disabled={
+                  name.length === 0 ||
+                  message.length === 0 ||
+                  phoneHelper.length !== 0 ||
+                  emailHelper.length !== 0 ||
+                  phone.length === 0 ||
+                  email.length === 0
+                }
+                variant="contained"
+                onClick={() => setOpen(true)}
+              >
+                Send Message
+                <img
+                  src={airplane}
+                  alt="paper airplane"
+                  style={{ marginLeft: "1em" }}
+                />
+              </SendButton>
+            </Grid>
+          </Grid>
+        </DialogContent>
+      </Dialog>
+
       <StyledBackground
         item
         container
