@@ -1,8 +1,10 @@
 import {
   Button,
+  CircularProgress,
   Dialog,
   DialogContent,
   Grid,
+  Snackbar,
   TextField,
   Typography,
   useMediaQuery,
@@ -10,6 +12,7 @@ import {
 import { styled, useTheme } from "@mui/system";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 import background from "../assets/background.jpg";
 import mobileBackground from "../assets/mobileBackground.jpg";
@@ -97,6 +100,14 @@ function Contact(props) {
 
   const [open, setOpen] = useState(false);
 
+  const [loading, setLoading] = useState(false);
+
+  const [alert, setAlert] = useState({
+    open: false,
+    message: "",
+    backgroundColor: "",
+  });
+
   const onChange = (event) => {
     let valid;
 
@@ -128,6 +139,47 @@ function Contact(props) {
         break;
     }
   };
+
+  const onConfirm = () => {
+    setLoading(true);
+    axios
+      .post("http://localhost:8000/sendMail", {
+        email: email,
+        name: name,
+        phone: phone,
+        message: message,
+      })
+      .then((response) => {
+        console.log("response: ", response.data);
+        setLoading(false);
+        setOpen(false);
+        setName("");
+        setEmail("");
+        setPhone("");
+        setMessage("");
+        setAlert({
+          open: true,
+          message: "Message sent successfully",
+          backgroundColor: "#4BB543",
+        });
+      })
+      .catch((err) => {
+        console.log("got an error: - ", err);
+        setLoading(false);
+        setAlert({
+          open: true,
+          message: "Something went wrong, please try again!",
+          backgroundColor: "#FF3232",
+        });
+      });
+  };
+
+  const buttonContents = (
+    <>
+      Send Message
+      <img src={airplane} alt="paper airplane" style={{ marginLeft: "1em" }} />
+    </>
+  );
 
   return (
     <Grid container direction="row">
@@ -250,7 +302,7 @@ function Contact(props) {
                   error={phoneHelper.length !== 0}
                   helperText={phoneHelper}
                   fullWidth
-                  phone={phone}
+                  value={phone}
                   onChange={onChange}
                 />
               </Grid>
@@ -296,12 +348,7 @@ function Contact(props) {
                 variant="contained"
                 onClick={() => setOpen(true)}
               >
-                Send Message
-                <img
-                  src={airplane}
-                  alt="paper airplane"
-                  style={{ marginLeft: "1em" }}
-                />
+                {buttonContents}
               </SendButton>
             </Grid>
           </Grid>
@@ -372,7 +419,7 @@ function Contact(props) {
               error={phoneHelper.length !== 0}
               helperText={phoneHelper}
               fullWidth
-              phone={phone}
+              value={phone}
               onChange={onChange}
             />
           </Grid>
@@ -426,19 +473,27 @@ function Contact(props) {
                   email.length === 0
                 }
                 variant="contained"
-                onClick={() => setOpen(true)}
+                onClick={onConfirm}
               >
-                Send Message
-                <img
-                  src={airplane}
-                  alt="paper airplane"
-                  style={{ marginLeft: "1em" }}
-                />
+                {loading ? <CircularProgress size={30} /> : buttonContents}
               </SendButton>
             </Grid>
           </Grid>
         </DialogContent>
       </Dialog>
+
+      <Snackbar
+        open={alert.open}
+        message={alert.message}
+        ContentProps={{
+          style: {
+            backgroundColor: alert.backgroundColor,
+          },
+        }}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        onClose={() => setAlert({ ...alert, open: false })}
+        autoHideDuration={4000}
+      />
 
       <StyledBackground
         item
