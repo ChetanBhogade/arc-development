@@ -7,11 +7,14 @@ import {
   DialogContent,
   TextField,
   useMediaQuery,
+  Snackbar,
+  CircularProgress,
 } from "@mui/material";
 import { styled, useTheme } from "@mui/system";
 import React, { useState } from "react";
 import Lottie from "react-lottie";
 import { cloneDeep } from "lodash";
+import axios from "axios";
 
 import check from "../assets/check.svg";
 import send from "../assets/send.svg";
@@ -356,6 +359,14 @@ function Estimate() {
   const [category, setCategory] = useState([]);
   const [users, setUsers] = useState([]);
 
+  const [loading, setLoading] = useState(false);
+
+  const [alert, setAlert] = useState({
+    open: false,
+    message: "",
+    backgroundColor: "",
+  });
+
   const defaultOptions = {
     loop: true,
     autoplay: true,
@@ -593,6 +604,43 @@ function Estimate() {
 
       setCategory(newCategory);
     }
+  };
+
+  const sendEstimate = () => {
+    setLoading(true);
+    axios
+      .post("http://localhost:8000/sendMail", {
+        email: email,
+        name: name,
+        phone: phone,
+        message: message,
+        total: total,
+        category: category,
+        service: service,
+        platforms: platforms,
+        features: features,
+        customFeatures: customFeatures,
+        users: users,
+      })
+      .then((response) => {
+        console.log("response: ", response.data);
+        setAlert({
+          open: true,
+          message: "Estimate placed successfully!",
+          backgroundColor: "#4BB543",
+        });
+        setLoading(false);
+        setDialogOpen(false);
+      })
+      .catch((err) => {
+        console.log("got an error: - ", err);
+        setAlert({
+          open: true,
+          message: "Something went wrong, please try again!",
+          backgroundColor: "#FF3232",
+        });
+        setLoading(false);
+      });
   };
 
   const softwareSelection = (
@@ -994,13 +1042,19 @@ function Estimate() {
               )}
 
               <Grid item>
-                <EstimateButton variant="contained">
-                  Place Request
-                  <img
-                    src={send}
-                    alt="Paper airplane"
-                    style={{ marginLeft: "0.5em" }}
-                  />
+                <EstimateButton onClick={sendEstimate} variant="contained">
+                  {loading ? (
+                    <CircularProgress size={30} />
+                  ) : (
+                    <>
+                      Place Request
+                      <img
+                        src={send}
+                        alt="Paper airplane"
+                        style={{ marginLeft: "0.5em" }}
+                      />
+                    </>
+                  )}
                 </EstimateButton>
               </Grid>
               {upMatchesMD ? null : (
@@ -1020,6 +1074,19 @@ function Estimate() {
           </Grid>
         </DialogContent>
       </Dialog>
+
+      <Snackbar
+        open={alert.open}
+        message={alert.message}
+        ContentProps={{
+          style: {
+            backgroundColor: alert.backgroundColor,
+          },
+        }}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        onClose={() => setAlert({ ...alert, open: false })}
+        autoHideDuration={4000}
+      />
     </Grid>
   );
 }
