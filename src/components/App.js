@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import About from "./About";
 import Contact from "./Contact";
 import CustomSoftware from "./CustomSoftware";
+import Estimate from "./Estimate";
 import LandingPage from "./LandingPage";
 import MobileApps from "./MobileApps";
 import Revolution from "./Revolution";
@@ -12,8 +13,6 @@ import Footer from "./ui/Footer";
 import Header from "./ui/Header";
 import theme from "./ui/Theme";
 import Websites from "./Websites";
-
-const Estimate = () => <div>estimate</div>;
 
 function App() {
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -98,7 +97,15 @@ function App() {
               />
             }
           />
-          <Route path="/estimate" element={<Estimate />} />
+          <Route
+            path="/estimate"
+            element={
+              <Estimate
+                setValue={setValue}
+                setSelectedIndex={setSelectedIndex}
+              />
+            }
+          />
         </Routes>
         <Footer setValue={setValue} setSelectedIndex={setSelectedIndex} />
       </BrowserRouter>
