@@ -264,12 +264,7 @@ function Contact(props) {
                 </Typography>
               </Grid>
             </Grid>
-            <Grid
-              item
-              container
-              direction="column"
-              style={{ width: "20em" }}
-            >
+            <Grid item container direction="column" style={{ width: "20em" }}>
               <Grid item style={{ marginBottom: "0.5em" }}>
                 <TextField
                   variant="standard"
@@ -322,6 +317,7 @@ function Contact(props) {
                 }}
                 multiline
                 fullWidth
+                placeholder="Tell us more about your project"
                 rows={10}
                 id="message"
                 value={message}
@@ -438,6 +434,7 @@ function Contact(props) {
               }}
               multiline
               fullWidth
+              placeholder="Tell us more about your project"
               rows={10}
               id="message"
               value={message}

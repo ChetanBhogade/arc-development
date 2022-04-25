@@ -643,6 +643,31 @@ function Estimate() {
       });
   };
 
+  const estimateDisabled = () => {
+    let disabled = true;
+
+    const emptySelections = questions
+      .map((question) => question.options.filter((option) => option.selected))
+      .filter((question) => question.length === 0);
+
+    if (questions.length === 2) {
+      if (emptySelections === 1) {
+        disabled = false;
+      }
+    } else if (questions.length === 1) {
+      disabled = true;
+    } else if (
+      emptySelections < 3 &&
+      questions[questions.length - 1].options.filter(
+        (option) => option.selected
+      ).length > 0
+    ) {
+      disabled = false;
+    }
+
+    return disabled;
+  };
+
   const softwareSelection = (
     <Grid container direction="column">
       <Grid
@@ -911,6 +936,7 @@ function Estimate() {
               getCustomFeatures();
               getCategory();
             }}
+            disabled={estimateDisabled()}
             variant="contained"
           >
             Get Estimate
@@ -999,6 +1025,7 @@ function Estimate() {
                   }}
                   multiline
                   fullWidth
+                  placeholder="Tell us more about your project"
                   rows={10}
                   id="message"
                   value={message}
@@ -1012,6 +1039,7 @@ function Estimate() {
                   variant="body1"
                   align={matchesSM ? "center" : undefined}
                   paragraph
+                  style={{ lineHeight: 1.25 }}
                 >
                   We can create this digital solution for an estimated{" "}
                   <SpecialText>$ {total.toFixed(2)}</SpecialText>
@@ -1042,7 +1070,18 @@ function Estimate() {
               )}
 
               <Grid item>
-                <EstimateButton onClick={sendEstimate} variant="contained">
+                <EstimateButton
+                  disabled={
+                    name.length === 0 ||
+                    message.length === 0 ||
+                    phoneHelper.length !== 0 ||
+                    emailHelper.length !== 0 ||
+                    phone.length === 0 ||
+                    email.length === 0
+                  }
+                  onClick={sendEstimate}
+                  variant="contained"
+                >
                   {loading ? (
                     <CircularProgress size={30} />
                   ) : (
